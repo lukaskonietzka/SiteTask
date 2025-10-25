@@ -1,0 +1,33 @@
+/* Container*/
+.todo-container {
+    max-width: 500px;
+    width: 90%;
+    padding: 2rem;
+    background: #bcd4e6;
+    border-radius: 2rem;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Title */
+.todo-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+/* Todo list container */
+.todo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Footer */
+.todo-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.8rem;
+    color: #999;
+}
