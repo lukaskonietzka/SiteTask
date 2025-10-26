@@ -1,33 +1,141 @@
-/* Container*/
+/* =========================================
+   Hauptcontainer
+========================================= */
 .todo-container {
-    max-width: 500px;
-    width: 90%;
-    padding: 2rem;
-    background: #bcd4e6;
-    border-radius: 2rem;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+    min-height: 100vh;
+    width: 100%;
+    padding: 3rem 5vw; /* Seitenrand links/rechts */
+    background: linear-gradient(180deg, #bcd4e6 0%, #d8e5ef 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
-/* Title */
+/* =========================================
+   Titel
+========================================= */
 .todo-title {
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: left;
-    margin-bottom: 1.5rem;
-    color: #333;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: #1b4d89;
+    letter-spacing: 0.5px;
 }
 
-/* Todo list container */
+/* =========================================
+   Grid für Karten
+========================================= */
+.todo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1600px; /* maximale Breite für große Monitore */
+    margin: 0 auto;
+}
+
+/* =========================================
+   Karten (Kategorien)
+========================================= */
+.todo-card {
+    background: #ffffff;
+    border-radius: 1.2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.25s ease;
+    position: relative;
+}
+
+.todo-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+}
+
+.todo-card-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #1b4d89;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #e0e7ff;
+    padding-bottom: 0.4rem;
+}
+
+/* =========================================
+   ToDo-Liste innerhalb der Card
+========================================= */
 .todo-list {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    flex-grow: 1;
 }
 
-/* Footer */
+/* =========================================
+   Eingabezeile in der Card
+========================================= */
+.todo-add-inline {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    gap: 0.5rem;
+}
+
+.todo-input-inline {
+    flex: 1;
+    padding: 0.45rem 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.todo-input-inline:focus {
+    border-color: #1b4d89;
+}
+
+.todo-add-btn {
+    background-color: #1b4d89;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.3rem;
+    cursor: pointer;
+    line-height: 1.3rem;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.todo-add-btn:hover {
+    background-color: #163d6a;
+    transform: scale(1.1);
+}
+
+/* =========================================
+   Footer
+========================================= */
 .todo-footer {
     text-align: center;
-    margin-top: 1.5rem;
-    font-size: 0.8rem;
-    color: #999;
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.4;
+    max-width: 800px;
+}
+
+/* =========================================
+   Scroll-Verhalten
+========================================= */
+body {
+    margin: 0;
+    font-family: "Inter", system-ui, sans-serif;
+    background-color: #bcd4e6;
+    overflow-x: hidden;
 }

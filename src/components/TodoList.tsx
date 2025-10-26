@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { defaultTodos } from "../data/defaultTodos";
 import { Todo } from "../types/types";
 import "../styles/todo-list.css";
+import AddCategory from "./AddCategory";
 import AddTodo from "./AddTodo";
 
 interface TodoListProps {
@@ -12,14 +13,13 @@ interface TodoListProps {
     subTitle?: string;
 }
 
-const defaultSubtitle =
-    "Diese App speichert eine Todo-Liste im Browser." +
-    "Wird der Cache geleert, so gehen alle Daten verloren.";
+const defaultSubtitle: string =
+    "Diese App speichert eine Todo-Liste im Browser. Wird der Cache geleert, so gehen alle Daten verloren.";
 
-const TodoList: React.FC <TodoListProps> = (props: TodoListProps) => {
+const TodoList: React.FC<TodoListProps> = (props: TodoListProps) => {
     const [todos, setTodos] = useState<Todo[]>([]);
 
-    useEffect(() => {
+    useEffect((): void => {
         const stored = loadTodos();
         if (stored.length === 0) {
             saveTodos(defaultTodos);
@@ -29,44 +29,93 @@ const TodoList: React.FC <TodoListProps> = (props: TodoListProps) => {
         }
     }, []);
 
-    const addTodo = (text: string) => {
-        if (!text.trim()) return;
-        const updated = [...todos, { id: uuidv4(), text, done: false }];
+    const addCategory = (category: string): void => {
+        const exists = todos.some(t => t.category === category);
+        if (exists) return;
+
+        const newCategory: Todo = {
+            id: uuidv4(),
+            text: "",
+            category,
+            done: false,
+        };
+
+        const updated: Todo[] = [...todos, newCategory];
         setTodos(updated);
         saveTodos(updated);
     };
 
-    const toggleTodo = (id: string) => {
-        const updated = todos.map(t => (t.id === id ? { ...t, done: !t.done } : t));
+    const addTodo = (category: string, text: string): void => {
+        const trimmed: string = text.trim();
+        if (!trimmed) return;
+
+        const newTodo: Todo = {
+            id: uuidv4(),
+            text: trimmed,
+            category,
+            done: false,
+        };
+
+        const updated: Todo[] = [...todos, newTodo];
         setTodos(updated);
         saveTodos(updated);
     };
 
-    const deleteTodo = (id: string) => {
-        const updated = todos.filter(t => t.id !== id);
+    const toggleTodo = (id: string): void => {
+        const updated: Todo[] = todos.map(t =>
+            t.id === id ? { ...t, done: !t.done } : t
+        );
         setTodos(updated);
         saveTodos(updated);
     };
+
+    const deleteTodo = (id: string): void => {
+        const updated: Todo[] = todos.filter(t => t.id !== id);
+        setTodos(updated);
+        saveTodos(updated);
+    };
+
+    const categories: string[] = todos.reduce<string[]>((acc, todo) => {
+        const category = (todo as any).category ?? "Unkategorisiert";
+        if (!acc.includes(category)) acc.push(category);
+        return acc;
+    }, []);
 
     return (
         <div className="todo-container">
-            <h1 className="todo-title">{props.title ? props.title : '📝 Zu erledigen...'}</h1>
+            <h1 className="todo-title">
+                {props.title ? props.title : "📝 Zu erledigen..."}
+            </h1>
 
-            <div className="todo-list">
-                {todos.map(todo => (
-                    <TodoItem
-                        key={todo.id}
-                        {...todo}
-                        onToggle={toggleTodo}
-                        onDelete={deleteTodo}
-                    />
+            <div className="todo-grid">
+                {categories.map(category => (
+                    <div key={category} className="todo-card">
+                        <h2 className="todo-card-title">{category}</h2>
+
+                        <div className="todo-list">
+                            {todos
+                                .filter(todo => (todo.category ?? "Unkategorisiert") === category)
+                                .map(todo => (
+                                    <TodoItem
+                                        key={todo.id}
+                                        {...todo}
+                                        onToggle={toggleTodo}
+                                        onDelete={deleteTodo}
+                                    />
+                                ))}
+                        </div>
+                        <AddTodo
+                            category={category}
+                            onAdd={(cat, text) => addTodo(cat, text)}
+                        />
+                    </div>
                 ))}
             </div>
 
             <p className="todo-footer">
                 {props.subTitle ? props.subTitle : defaultSubtitle}
             </p>
-            <AddTodo onAdd={addTodo} />
+            <AddCategory onAdd={addCategory} />
         </div>
     );
 };

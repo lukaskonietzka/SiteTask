@@ -1,54 +1,38 @@
-import React, { useState } from "react";
-import "../styles/add-todo-styles.css";
+import React, { useState, KeyboardEvent } from "react";
+import "../styles/add-todo.css";
 
 interface AddTodoProps {
-    onAdd: (text: string) => void;
+    category: string;
+    onAdd: (category: string, text: string) => void;
 }
 
-const AddTodo: React.FC<AddTodoProps> = ({ onAdd }) => {
-    const [open, setOpen] = useState(false);
+const AddTodo: React.FC<AddTodoProps> = ({ category, onAdd }) => {
     const [text, setText] = useState("");
 
-    const handleAdd = () => {
-        if (!text.trim()) return;
-        onAdd(text);
+    const handleAdd = (): void => {
+        const trimmed: string = text.trim();
+        if (!trimmed) return;
+        onAdd(category, trimmed);
         setText("");
-        setOpen(false);
+    };
+
+    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
+        if (e.key === "Enter") handleAdd();
     };
 
     return (
-        <div className="add-todo-container">
-            {open ? (
-                <div className="add-todo-input-wrapper">
-                    <input
-                        type="text"
-                        value={text}
-                        onChange={e => setText(e.target.value)}
-                        placeholder="Neue Aufgabe..."
-                        className="add-todo-input"
-                        autoFocus
-                    />
-                    <button
-                        title="Hinzufügen"
-                        className="add-todo-submit"
-                        onClick={handleAdd}>
-                        ✓
-                    </button>
-                    <button
-                        title="Abbrechen"
-                        className="add-todo-cancel"
-                        onClick={() => setOpen(false)}>
-                        ✕
-                    </button>
-                </div>
-            ) : (
-                <button
-                    title="Neue Aufgabe hinzufügen"
-                    className="add-todo-button"
-                    onClick={() => setOpen(true)}>
-                    +
-                </button>
-            )}
+        <div className="todo-add-inline">
+            <input
+                type="text"
+                className="todo-input-inline"
+                placeholder={`Neues Todo in ${category}`}
+                value={text}
+                onChange={e => setText(e.target.value)}
+                onKeyDown={handleKeyDown}
+            />
+            <button className="todo-add-btn" onClick={handleAdd}>
+                +
+            </button>
         </div>
     );
 };

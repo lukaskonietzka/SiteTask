@@ -1,0 +1,38 @@
+.todo-add-inline {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    gap: 0.5rem;
+}
+
+.todo-input-inline {
+    flex: 1;
+    padding: 0.45rem 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.todo-input-inline:focus {
+    border-color: #1b4d89;
+}
+
+.todo-add-btn {
+    background-color: #1b4d89;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.3rem;
+    cursor: pointer;
+    line-height: 1.3rem;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.todo-add-btn:hover {
+    background-color: #163d6a;
+    transform: scale(1.1);
+}

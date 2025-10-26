@@ -9,13 +9,12 @@ interface TodoItemProps {
     onDelete: (id: string) => void;
 }
 
-
 export default class TodoItem extends Component<TodoItemProps> {
-    handleToggle = () => {
+    handleToggle = (): void => {
         this.props.onToggle(this.props.id);
     };
 
-    handleDelete = () => {
+    handleDelete = (): void => {
         this.props.onDelete(this.props.id);
     };
 

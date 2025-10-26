@@ -1,0 +1,97 @@
+/* Container unten links fixiert */
+.add-category-container {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    z-index: 1000;
+}
+
+/* Eingabefeld + Buttons (erscheint über dem Plus) */
+.add-category-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #ffffff;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    animation: fadeInUp 0.2s ease forwards;
+}
+
+/* Eingabe */
+.add-category-input {
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    outline: none;
+    width: 200px;
+}
+
+.add-category-input:focus {
+    border-color: #1b4d89;
+}
+
+/* Buttons */
+.add-category-submit,
+.add-category-cancel {
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    padding: 0.3rem 0.6rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.add-category-submit {
+    background-color: #1b4d89;
+    color: white;
+}
+
+.add-category-submit:hover {
+    background-color: #163d6a;
+}
+
+.add-category-cancel {
+    background-color: #d9534f;
+    color: white;
+}
+
+.add-category-cancel:hover {
+    background-color: #b52b27;
+}
+
+/* Plus-Button unten links */
+.add-category-button {
+    background-color: #1b4d89;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    font-size: 2rem;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.add-category-button:hover {
+    background-color: #163d6a;
+    transform: scale(1.05);
+}
+
+/* Sanftes Erscheinen */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
